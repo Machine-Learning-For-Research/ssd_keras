@@ -217,7 +217,7 @@ class BatchGenerator:
 
         data = []
 
-        with open(self.labels_path, newline='') as csvfile:
+        with open(self.labels_path) as csvfile:
             csvread = csv.reader(csvfile, delimiter=',')
             k = 0
             for i in csvread: # For every line (i.e for every bounding box) in the CSV file...
