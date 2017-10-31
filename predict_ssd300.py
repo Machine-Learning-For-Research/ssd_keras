@@ -1,14 +1,8 @@
-from keras.optimizers import Adam
-from keras.callbacks import ModelCheckpoint, LearningRateScheduler, EarlyStopping, ReduceLROnPlateau
 from keras import backend as K
-from keras.models import load_model
-from math import ceil
-import numpy as np
 from matplotlib import pyplot as plt
 
 from keras_ssd300 import ssd_300
-from keras_ssd_loss import SSDLoss
-from ssd_box_encode_decode_utils import SSDBoxEncoder, decode_y, decode_y2
+from ssd_box_encode_decode_utils import decode_y
 from ssd_batch_generator import BatchGenerator
 
 val_dataset = BatchGenerator(images_path='./Datasets/VOCdevkit/VOC2012/JPEGImages/',

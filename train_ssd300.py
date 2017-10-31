@@ -168,16 +168,16 @@ n_val_samples = val_dataset.get_n_samples()
 
 def lr_schedule(epoch):
     if epoch <= 20:
-        return 0.001
-    else:
         return 0.0001
+    else:
+        return 0.00001
 
 
 ### Run training
 print('Step 3:')
 print('Run training.')
 
-# 7: Run training
+# 7: Run trainingepoch
 
 epochs = 10
 
@@ -206,70 +206,3 @@ print()
 print("Model saved as {}.h5".format(model_name))
 print("Weights also saved separately as {}_weights.h5".format(model_name))
 print()
-
-### Make predictions
-
-# 1: Set the generator
-
-predict_generator = val_dataset.generate(batch_size=1,
-                                         train=False,
-                                         equalize=False,
-                                         brightness=False,
-                                         flip=False,
-                                         translate=False,
-                                         scale=False,
-                                         random_crop=(300, 300, 1, 3),
-                                         crop=False,
-                                         resize=False,
-                                         gray=False,
-                                         limit_boxes=True,
-                                         include_thresh=0.4,
-                                         diagnostics=False)
-
-# 2: Generate samples
-
-X, y_true, filenames = next(predict_generator)
-
-i = 0  # Which batch item to look at
-
-print("Image:", filenames[i])
-print()
-print("Ground truth boxes:\n")
-print(y_true[i])
-
-# 3: Make a prediction
-
-y_pred = model.predict(X)
-
-# 4: Decode the raw prediction `y_pred`
-
-y_pred_decoded = decode_y(y_pred,
-                          confidence_thresh=0.01,
-                          iou_threshold=0.45,
-                          top_k=200,
-                          input_coords='centroids',
-                          normalize_coords=normalize_coords,
-                          img_height=img_height,
-                          img_width=img_width)
-
-print("Predicted boxes:\n")
-print(y_pred_decoded[i])
-
-# 5: Draw the predicted boxes onto the image
-
-plt.figure(figsize=(20, 12))
-plt.imshow(X[i])
-
-current_axis = plt.gca()
-
-for box in y_pred_decoded[i]:
-    label = '{}: {:.2f}'.format(classes[int(box[0])], box[1])
-    current_axis.add_patch(
-        plt.Rectangle((box[2], box[4]), box[3] - box[2], box[5] - box[4], color='blue', fill=False, linewidth=2))
-    current_axis.text(box[2], box[4], label, size='x-large', color='white', bbox={'facecolor': 'blue', 'alpha': 1.0})
-
-for box in y_true[i]:
-    label = '{}'.format(classes[int(box[0])])
-    current_axis.add_patch(
-        plt.Rectangle((box[1], box[3]), box[2] - box[1], box[4] - box[3], color='green', fill=False, linewidth=2))
-    current_axis.text(box[1], box[3], label, size='x-large', color='white', bbox={'facecolor': 'green', 'alpha': 1.0})
