@@ -23,12 +23,13 @@ img_channels = 3  # Number of color channels of the input images
 n_classes = 21  # Number of classes including the background class, e.g. 21 for the Pascal VOC datasets
 scales = [0.1, 0.2, 0.37, 0.54, 0.71, 0.88,
           1.05]  # The anchor box scaling factors used in the original SSD300 for the Pascal VOC datasets, the factors for the MS COCO dataset are smaller, namely [0.07, 0.15, 0.33, 0.51, 0.69, 0.87, 1.05]
-aspect_ratios = [[0.5, 1.0, 2.0],
-                 [1.0 / 3.0, 0.5, 1.0, 2.0, 3.0],
-                 [1.0 / 3.0, 0.5, 1.0, 2.0, 3.0],
-                 [1.0 / 3.0, 0.5, 1.0, 2.0, 3.0],
-                 [0.5, 1.0, 2.0],
-                 [0.5, 1.0, 2.0]]  # The anchor box aspect ratios used in the original SSD300
+# The anchor box aspect ratios used in the original SSD300
+aspect_ratios = [[0.5, 1.0, 2.0],  # 38 x 38
+                 [1.0 / 3.0, 0.5, 1.0, 2.0, 3.0],  # 19 x 19
+                 [1.0 / 3.0, 0.5, 1.0, 2.0, 3.0],  # 10 x 10
+                 [1.0 / 3.0, 0.5, 1.0, 2.0, 3.0],  # 5 x 5
+                 [0.5, 1.0, 2.0],  # 3 x 3
+                 [0.5, 1.0, 2.0]]  # 1 x 1
 two_boxes_for_ar1 = True
 limit_boxes = False  # Whether or not you want to limit the anchor boxes to lie entirely within the image boundaries
 variances = [0.1, 0.1, 0.2,
