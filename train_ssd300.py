@@ -1,5 +1,5 @@
 from keras.optimizers import Adam
-from keras.callbacks import ModelCheckpoint, LearningRateScheduler, EarlyStopping, ReduceLROnPlateau
+from keras.callbacks import ModelCheckpoint, LearningRateScheduler, EarlyStopping, ReduceLROnPlateau, TensorBoard
 from keras import backend as K
 from keras.models import load_model
 from math import ceil
@@ -192,6 +192,7 @@ history = model.fit_generator(generator=train_generator,
                                                          mode='auto',
                                                          period=1),
                                          LearningRateScheduler(lr_schedule),
+                                         TensorBoard(),
                                          EarlyStopping(monitor='val_loss',
                                                        min_delta=0.001,
                                                        patience=2)],
