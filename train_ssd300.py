@@ -62,7 +62,7 @@ model, predictor_sizes = ssd_300(image_size=(img_height, img_width, img_channels
 print('Step 2:')
 print('Set up training.')
 
-batch_size = 32
+batch_size = 16
 
 # 3: Instantiate an Adam optimizer and the SSD loss function and compile the model
 
@@ -193,7 +193,7 @@ history = model.fit_generator(generator=train_generator,
                                                          mode='auto',
                                                          period=1),
                                          LearningRateScheduler(lr_schedule),
-                                         TensorBoard(),
+                                         # TensorBoard(),
                                          EarlyStopping(monitor='val_loss',
                                                        min_delta=0.001,
                                                        patience=2)],
